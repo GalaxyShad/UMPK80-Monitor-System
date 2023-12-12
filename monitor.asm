@@ -21,8 +21,8 @@ RS4C    EQU     0AF6h   ; Точка выхода по RST 4
 RS5C    EQU     0AF9h   ; Точка выхода по RST 5
 RS6C    EQU     0AFCh   ; Точка выхода по RST 6
 
-TPR     EQU     0BFFh   ; Верх защищенного ОЗУ
-UR      EQU     0BEFh   ; Верх ОЗУ (Без точек входа по RST)
+TPR     EQU     0AFFh   ; Верх защищенного ОЗУ
+UR      EQU     0AEFh   ; Верх ОЗУ (Без точек входа по RST)
 ERAM    EQU     0Ch     ; Конец ОЗУ
 
 LMC     EQU     06A0h   ; Стартовая мелодия
