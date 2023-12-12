@@ -311,10 +311,10 @@ TRP6:
     PUSH B 
     PUSH D 
     PUSH H 
-    NOP 
-    NOP 
-    NOP 
     EI 
+    NOP 
+    NOP 
+    NOP  
 TRP7:
     LXI SP, SAVPC 
     POP B 
@@ -540,7 +540,7 @@ SDM1:
     LDAX D          ; Копируем символ 
     MOV M, A        ; Запомним его в UDSPX 
     INR L           ; Следующая ячейка UDSP 
-    INR D           ; Следующий символ 
+    INX D           ; Следующий символ 
     DCR B           ; Все символы? 
     JNZ SDM1        ; Нет, повторим 
     POP B 
