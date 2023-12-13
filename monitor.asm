@@ -631,6 +631,7 @@ FETR2:
     MOV E, A            ; Разделить его на полубайты
     LXI H, UDSP +1      
     CALL FETA7          
+    DS 6
 FETR3:
     CALL KIND           ; Введем клавишу
     CALL CSTRR          ; Управляющая клавиша?
@@ -652,7 +653,7 @@ FETR5:
     MOV E, A            ; И
     MOV M, D            
     JMP FETR4           ; Продолжим....
-
+    DS 9
 ; 
 ; Остановка десятичной точки
 ; 
@@ -665,12 +666,6 @@ DPS:
     STA UDSP6
     POP PSW
     RET
-    DB 0, 0, 0
-    DB 0, 0
-    DB 0, 0, 0
-    DB 0, 0
-    DB 0, 0, 0
-    DB 0, 0
 
 ; 
 ; Отыскание адреса
@@ -683,10 +678,19 @@ FETAR:
     MVI C, 4            ; Нужно ввести 4 цифры адреса
 FETA1:
     CALL KIND           ; Введем клавишу 
-    CALL CFETA         ; Управляющая?
+    CALL CFETA          ; Управляющая?
     JNC FETA1
     LXI H, UDSP6
-    MVI B, 004H         ; Сдвигаем адрес на дисплее влево 
+    MOV B, A            ; Сдвигаем адрес на дисплее влево
+    CPI 1
+    JNZ FETA8
+    MVI A, 4
+    CMP C 
+    JNZ FETA8
+    JMP FETAR
+FETA8:
+    MOV A, B  
+    MVI B, 4
 FETA2:
     DCR L 
     DCR L
@@ -736,12 +740,6 @@ FETA5:
     MOV E, A            
     MOV M, D            
     JMP FETA4           ; Продолжаем ввод 
-    DB 0, 0, 0
-    DB 0, 0
-    DB 0, 0, 0
-    DB 0, 0
-    DB 0, 0, 0
-    DB 0, 0, 0
 
 ; 
 ; Упаковка двух шестнадцатиричных чисел в регистре А 
@@ -937,7 +935,7 @@ BEEP3:
 BEEP4:
     MVI A, 0FFH     ; Включим вход 
     OUT OTR 
-    CMP M 
+    NOP
 BEEP5: 
     POP PSW 
     PUSH PSW 
