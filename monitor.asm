@@ -33,8 +33,6 @@ TPR     EQU     0AFFh   ; Верх защищенного ОЗУ
 UR      EQU     0AEFh   ; Верх ОЗУ (Без точек входа по RST)
 ERAM    EQU     0Ch     ; Конец ОЗУ
 
-LMC     EQU     06A0h   ; Стартовая мелодия
-
 ;
 ; Области стека монитора и пользователя в ОЗУ
 ;
@@ -95,6 +93,7 @@ RS1:
 ;
 BEEP:
     MVI B, FREQ     ; Частота сигнала
+BEEP1:
     MVI D, DUR      ; Длительность сигнала 
     JMP BEEP2
     NOP
@@ -941,7 +940,7 @@ BEEP3:
 BEEP4:
     MVI A, 0FFH     ; Включим вход 
     OUT OTR 
-    NOP
+    CMP M
 BEEP5: 
     POP PSW 
     PUSH PSW 
@@ -966,898 +965,515 @@ BEEP7:
 ;
 ; Unknown section
 ;
-DB  011h 
-DB  0DBh 
-DB  004h 
-DB  0DFh 
-DB  011h 
-DB  0FFh 
-DB  000h 
-DB  0AFh 
-DB  032h 
-DB  0F6h 
-DB  00Bh 
-DB  0CDh 
-DB  0E9h 
-DB  001h 
-DB  006h 
-DB  01Fh 
-DB  005h 
-DB  029h 
-DB  0C2h 
-DB  091h 
-DB  004h 
-DB  03Eh 
-DB  0FBh 
-DB  0D3h 
-DB  007h 
-DB  0DBh 
-DB  006h 
-DB  0FEh 
-DB  0FEh 
-DB  0CAh 
-DB  081h 
-DB  004h 
-DB  03Eh 
-DB  0F7h 
-DB  0D3h 
-DB  007h 
-DB  0DBh 
-DB  006h 
-DB  0FEh 
-DB  0FEh 
-DB  0C2h 
-DB  0D6h 
-DB  004h 
-DB  0BBh 
-DB  0CAh 
-DB  0B2h 
-DB  004h 
-DB  05Fh 
-DB  014h 
-DB  07Ah 
-DB  01Fh 
-DB  0D2h 
-DB  088h 
-DB  004h 
-DB  021h 
-DB  0F0h 
-DB  00Bh 
-DB  034h 
-DB  07Eh 
-DB  0FEh 
-DB  00Ah 
-DB  0C2h 
-DB  0C7h 
-DB  004h 
-DB  036h 
-DB  000h 
-DB  02Ch 
-DB  0C3h 
-DB  0BAh 
-DB  004h 
-DB  021h 
-DB  0F3h 
-DB  00Bh 
-DB  07Eh 
-DB  0FEh 
-DB  006h 
-DB  0C2h 
-DB  088h 
-DB  004h 
-DB  036h 
-DB  000h 
-DB  02Ch 
-DB  0C3h 
-DB  0C3h 
-DB  004h 
-DB  01Eh 
-DB  0FFh 
-DB  0C3h 
-DB  0B2h 
-DB  004h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  019h 
-DB  000h 
-DB  001h 
-DB  000h 
-DB  000h 
-DB  03Eh 
-DB  001h 
-DB  0A7h 
-DB  0F5h 
-DB  0A3h 
-DB  078h 
-DB  0CAh 
-DB  0EEh 
-DB  004h 
-DB  082h 
-DB  01Fh 
-DB  047h 
-DB  079h 
-DB  01Fh 
-DB  04Fh 
-DB  0F1h 
-DB  017h 
-DB  0D2h 
-DB  0E7h 
-DB  004h 
-DB  0C9h 
-DB  000h 
-DB  016h 
-DB  000h 
-DB  0CDh 
-DB  09Ah 
-DB  001h 
-DB  0CDh 
-DB  01Ch 
-DB  005h 
-DB  0B7h 
-DB  0CAh 
-DB  0FCh 
-DB  004h 
-DB  0CDh 
-DB  00Fh 
-DB  005h 
-DB  0CDh 
-DB  016h 
-DB  005h 
-DB  0C3h 
-DB  0FCh 
-DB  004h 
-DB  03Dh 
-DB  000h 
-DB  000h 
-DB  0C2h 
-DB  00Fh 
-DB  005h 
-DB  0C9h 
-DB  07Ah 
-DB  02Fh 
-DB  057h 
-DB  0D3h 
-DB  004h 
-DB  0C9h 
-DB  006h 
-DB  007h 
-DB  021h 
-DB  0EFh 
-DB  00Bh 
-DB  07Eh 
-DB  02Fh 
-DB  0B7h 
-DB  0CAh 
-DB  039h 
-DB  005h 
-DB  0FEh 
-DB  004h 
-DB  0C2h 
-DB  02Dh 
-DB  005h 
-DB  03Dh 
-DB  04Fh 
-DB  078h 
-DB  007h 
-DB  007h 
-DB  0B1h 
-DB  021h 
-DB  03Ah 
-DB  005h 
-DB  085h 
-DB  06Fh 
-DB  07Eh 
-DB  0C9h 
-DB  005h 
-DB  02Bh 
-DB  078h 
-DB  0FEh 
-DB  001h 
-DB  0C2h 
-DB  021h 
-DB  005h 
-DB  0AFh 
-DB  0C9h 
-DB  0E6h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  0DAh 
-DB  0BDh 
-DB  0A3h 
-DB  000h 
-DB  08Fh 
-DB  085h 
-DB  072h 
-DB  000h 
-DB  064h 
-DB  05Ch 
-DB  04Dh 
-DB  000h 
-DB  043h 
-DB  038h 
-DB  033h 
-DB  000h 
-DB  02Dh 
-DB  024h 
-DB  020h 
-DB  021h 
-DB  08Dh 
-DB  005h 
-DB  0D5h 
-DB  01Ah 
-DB  0E6h 
-DB  0F0h 
-DB  0CAh 
-DB  066h 
-DB  005h 
-DB  02Eh 
-DB  099h 
-DB  01Ah 
-DB  0E6h 
-DB  00Fh 
-DB  0CAh 
-DB  084h 
-DB  005h 
-DB  0FEh 
-DB  00Dh 
-DB  0DAh 
-DB  073h 
-DB  005h 
-DB  03Eh 
-DB  00Ch 
-DB  0D6h 
-DB  001h 
-DB  085h 
-DB  06Fh 
-DB  046h 
-DB  0CDh 
-DB  012h 
-DB  000h 
-DB  0D1h 
-DB  013h 
-DB  01Ah 
-DB  02Fh 
-DB  0A7h 
-DB  0C8h 
-DB  0C3h 
-DB  05Ah 
-DB  005h 
-DB  001h 
-DB  080h 
-DB  000h 
-DB  0CDh 
-DB  030h 
-DB  004h 
-DB  0C3h 
-DB  07Bh 
-DB  005h 
-DB  0A1h 
-DB  098h 
-DB  08Fh 
-DB  087h 
-DB  07Fh 
-DB  078h 
-DB  071h 
-DB  06Bh 
-DB  064h 
-DB  05Fh 
-DB  059h 
-DB  054h 
-DB  04Fh 
-DB  04Ah 
-DB  046h 
-DB  042h 
-DB  03Eh 
-DB  03Ah 
-DB  037h 
-DB  034h 
-DB  031h 
-DB  02Eh 
-DB  02Bh 
-DB  028h 
-DB  006h 
-DB  000h 
-DB  006h 
-DB  000h 
-DB  006h 
-DB  000h 
-DB  001h 
-DB  001h 
-DB  001h 
-DB  001h 
-DB  0FFh 
-DB  011h 
-DB  000h 
-DB  006h 
-DB  0CDh 
-DB  05Ah 
-DB  005h 
-DB  0CFh 
-DB  0C3h 
-DB  0B0h 
-DB  005h 
-DB  011h 
-DB  0C4h 
-DB  005h 
-DB  0CDh 
-DB  05Ah 
-DB  005h 
-DB  0CFh 
-DB  0C3h 
-DB  0BAh 
-DB  005h 
-DB  001h 
-DB  004h 
-DB  008h 
-DB  004h 
-DB  006h 
-DB  006h 
-DB  004h 
-DB  003h 
-DB  008h 
-DB  008h 
-DB  006h 
-DB  006h 
-DB  001h 
-DB  001h 
-DB  001h 
-DB  000h 
-DB  004h 
-DB  008h 
-DB  00Bh 
-DB  00Bh 
-DB  011h 
-DB  011h 
-DB  00Bh 
-DB  009h 
-DB  008h 
-DB  008h 
-DB  008h 
-DB  000h 
-DB  00Ah 
-DB  00Ah 
-DB  00Ch 
-DB  00Ch 
-DB  013h 
-DB  011h 
-DB  008h 
-DB  008h 
-DB  000h 
-DB  003h 
-DB  003h 
-DB  001h 
-DB  008h 
-DB  006h 
-DB  009h 
-DB  009h 
-DB  009h 
-DB  000h 
-DB  00Bh 
-DB  009h 
-DB  008h 
-DB  008h 
-DB  006h 
-DB  004h 
-DB  008h 
-DB  008h 
-DB  006h 
-DB  006h 
-DB  011h 
-DB  011h 
-DB  011h 
-DB  0FFh 
-DB  000h 
-DB  01Ah 
-DB  01Bh 
-DB  01Ah 
-DB  01Ah 
-DB  01Ah 
-DB  01Ah 
-DB  01Ah 
-DB  000h 
-DB  00Ah 
-DB  00Bh 
-DB  00Ah 
-DB  00Ah 
-DB  00Ah 
-DB  00Ah 
-DB  00Ah 
-DB  000h 
-DB  00Ah 
-DB  00Bh 
-DB  00Ah 
-DB  00Ah 
-DB  003h 
-DB  005h 
-DB  006h 
-DB  003h 
-DB  00Ah 
-DB  00Bh 
-DB  00Ah 
-DB  00Ah 
-DB  005h 
-DB  006h 
-DB  008h 
-DB  005h 
-DB  00Ah 
-DB  00Bh 
-DB  00Ah 
-DB  00Ah 
-DB  005h 
-DB  006h 
-DB  008h 
-DB  008h 
-DB  00Ah 
-DB  00Bh 
-DB  00Ah 
-DB  00Ah 
-DB  00Ah 
-DB  00Ah 
-DB  00Ah 
-DB  000h 
-DB  013h 
-DB  014h 
-DB  013h 
-DB  013h 
-DB  00Ah 
-DB  00Bh 
-DB  011h 
-DB  00Ah 
-DB  013h 
-DB  014h 
-DB  013h 
-DB  013h 
-DB  008h 
-DB  00Ah 
-DB  00Bh 
-DB  013h 
-DB  011h 
-DB  00Bh 
-DB  013h 
-DB  013h 
-DB  00Ah 
-DB  006h 
-DB  005h 
-DB  005h 
-DB  008h 
-DB  006h 
-DB  003h 
-DB  003h 
-DB  003h 
-DB  003h 
-DB  003h 
-DB  000h 
-DB  003h 
-DB  006h 
-DB  006h 
-DB  006h 
-DB  005h 
-DB  005h 
-DB  000h 
-DB  000h 
-DB  005h 
-DB  008h 
-DB  008h 
-DB  008h 
-DB  006h 
-DB  006h 
-DB  000h 
-DB  000h 
-DB  006h 
-DB  00Ah 
-DB  00Ah 
-DB  00Ah 
-DB  008h 
-DB  008h 
-DB  000h 
-DB  000h 
-DB  00Bh 
-DB  00Ah 
-DB  011h 
-DB  011h 
-DB  011h 
-DB  011h 
-DB  011h 
-DB  000h 
-DB  00Ah 
-DB  011h 
-DB  011h 
-DB  011h 
-DB  00Bh 
-DB  00Bh 
-DB  000h 
-DB  000h 
-DB  008h 
-DB  00Bh 
-DB  00Bh 
-DB  00Bh 
-DB  00Ah 
-DB  00Ah 
-DB  000h 
-DB  000h 
-DB  006h 
-DB  00Ah 
-DB  008h 
-DB  008h 
-DB  000h 
-DB  000h 
-DB  00Ah 
-DB  00Ah 
-DB  00Ah 
-DB  00Ah 
-DB  003h 
-DB  003h 
-DB  000h 
-DB  003h 
-DB  005h 
-DB  006h 
-DB  00Ah 
-DB  011h 
-DB  00Bh 
-DB  00Ah 
-DB  00Bh 
-DB  00Ah 
-DB  008h 
-DB  006h 
-DB  005h 
-DB  003h 
-DB  003h 
-DB  000h 
-DB  013h 
-DB  013h 
-DB  0FFh 
-DB  011h 
-DB  0A5h 
-DB  005h 
-DB  0CDh 
-DB  05Ah 
-DB  005h 
-DB  0C9h 
-DB  000h 
-DB  0F5h 
-DB  0D5h 
-DB  0C5h 
-DB  0D5h 
-DB  0DFh 
-DB  0D1h 
-DB  006h 
-DB  004h 
-DB  021h 
-DB  0F5h 
-DB  00Bh 
-DB  0CDh 
-DB  04Bh 
-DB  001h 
-DB  0FEh 
-DB  081h 
-DB  0CAh 
-DB  0ABh 
-DB  006h 
-DB  0FEh 
-DB  010h 
-DB  0D2h 
-DB  0B3h 
-DB  006h 
-DB  077h 
-DB  005h 
-DB  02Bh 
-DB  0C2h 
-DB  0B3h 
-DB  006h 
-DB  0CDh 
-DB  04Bh 
-DB  001h 
-DB  0FEh 
-DB  081h 
-DB  0CAh 
-DB  0ABh 
-DB  006h 
-DB  0FEh 
-DB  083h 
-DB  0C2h 
-DB  0C6h 
-DB  006h 
-DB  021h 
-DB  0F4h 
-DB  00Bh 
-DB  0CDh 
-DB  093h 
-DB  003h 
-DB  057h 
-DB  021h 
-DB  0F2h 
-DB  00Bh 
-DB  0CDh 
-DB  093h 
-DB  003h 
-DB  05Fh 
-DB  0D5h 
-DB  0D7h 
-DB  0E1h 
-DB  0C1h 
-DB  0D1h 
-DB  0F1h 
-DB  0C9h 
-DB  014h 
-DB  000h 
-DB  017h 
-DB  017h 
-DB  017h 
-DB  017h 
-DB  0D5h 
-DB  0EBh 
-DB  02Ah 
-DB  002h 
-DB  00Bh 
-DB  0CDh 
-DB  0FAh 
-DB  006h 
-DB  0EBh 
-DB  0D1h 
-DB  023h 
-DB  0C9h 
-DB  07Ch 
-DB  0BAh 
-DB  0C0h 
-DB  07Dh 
-DB  0BBh 
-DB  0C9h 
-DB  0C5h 
-DB  00Eh 
-DB  008h 
-DB  007h 
-DB  02Fh 
-DB  0D3h 
-DB  004h 
-DB  0CDh 
-DB  016h 
-DB  007h 
-DB  02Fh 
-DB  0D3h 
-DB  004h 
-DB  0CDh 
-DB  016h 
-DB  007h 
-DB  00Dh 
-DB  0C2h 
-DB  003h 
-DB  007h 
-DB  0C1h 
-DB  0C9h 
-DB  006h 
-DB  030h 
-DB  005h 
-DB  0C2h 
-DB  018h 
-DB  007h 
-DB  0C9h 
-DB  00Eh 
-DB  001h 
-DB  0DBh 
-DB  004h 
-DB  047h 
-DB  0DBh 
-DB  004h 
-DB  0B8h 
-DB  0CAh 
-DB  022h 
-DB  007h 
-DB  006h 
-DB  048h 
-DB  0CDh 
-DB  018h 
-DB  007h 
-DB  00Fh 
-DB  079h 
-DB  017h 
-DB  04Fh 
-DB  0D2h 
-DB  01Fh 
-DB  007h 
-DB  03Ah 
-DB  006h 
-DB  00Bh 
-DB  0A9h 
-DB  0C9h 
-DB  0AFh 
-DB  032h 
-DB  006h 
-DB  00Bh 
-DB  0F6h 
-DB  080h 
-DB  04Fh 
-DB  0CDh 
-DB  01Fh 
-DB  007h 
-DB  0FEh 
-DB  0E6h 
-DB  0C8h 
-DB  0FEh 
-DB  019h 
-DB  0C2h 
-DB  03Dh 
-DB  007h 
-DB  03Eh 
-DB  0FFh 
-DB  032h 
-DB  006h 
-DB  00Bh 
-DB  0C9h 
-DB  07Bh 
-DB  0CDh 
-DB  000h 
-DB  007h 
-DB  0CFh 
-DB  011h 
-DB  0E8h 
-DB  006h 
-DB  0CDh 
-DB  0A8h 
-DB  006h 
-DB  022h 
-DB  000h 
-DB  00Bh 
-DB  0CDh 
-DB  0A8h 
-DB  006h 
-DB  022h 
-DB  002h 
-DB  00Bh 
-DB  011h 
-DB  0DCh 
-DB  007h 
-DB  0CDh 
-DB  0A8h 
-DB  006h 
-DB  022h 
-DB  004h 
-DB  00Bh 
-DB  0AFh 
-DB  047h 
-DB  0CDh 
-DB  000h 
-DB  007h 
-DB  005h 
-DB  0C2h 
-DB  070h 
-DB  007h 
-DB  021h 
-DB  0FFh 
-DB  00Ah 
-DB  016h 
-DB  008h 
-DB  05Fh 
-DB  03Eh 
-DB  0E6h 
-DB  015h 
-DB  0C2h 
-DB  088h 
-DB  007h 
-DB  02Ah 
-DB  000h 
-DB  00Bh 
-DB  02Bh 
-DB  07Bh 
-DB  0CDh 
-DB  000h 
-DB  007h 
-DB  083h 
-DB  05Fh 
-DB  0CDh 
-DB  0EEh 
-DB  006h 
-DB  0CAh 
-DB  051h 
-DB  007h 
-DB  07Eh 
-DB  015h 
-DB  014h 
-DB  0CAh 
-DB  088h 
-DB  007h 
-DB  0C3h 
-DB  07Fh 
-DB  007h 
-DB  0CDh 
-DB  01Dh 
-DB  007h 
-DB  0BBh 
-DB  02Ah 
-DB  004h 
-DB  00Bh 
-DB  0CAh 
-DB  0D8h 
-DB  007h 
-DB  0CFh 
-DB  0D3h 
-DB  010h 
-DB  0CDh 
-DB  039h 
-DB  007h 
-DB  021h 
-DB  000h 
-DB  00Bh 
-DB  011h 
-DB  0E6h 
-DB  007h 
-DB  0CDh 
-DB  01Dh 
-DB  007h 
-DB  015h 
-DB  0C2h 
-DB  0C4h 
-DB  007h 
-DB  0BBh 
-DB  0C4h 
-DB  038h 
-DB  000h 
-DB  02Ah 
-DB  000h 
-DB  00Bh 
-DB  02Bh 
-DB  0C3h 
-DB  0C5h 
-DB  007h 
-DB  077h 
-DB  083h 
-DB  05Fh 
-DB  0CDh 
-DB  0EEh 
-DB  006h 
-DB  0CAh 
-DB  09Ch 
-DB  007h 
-DB  014h 
-DB  0FAh 
-DB  0B2h 
-DB  007h 
-DB  015h 
-DB  0C3h 
-DB  0B2h 
-DB  007h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  0D3h 
-DB  00Eh 
-DB  000h 
-DB  0E9h 
-DB  00Dh 
-DB  00Ah 
-DB  017h 
-DB  017h 
-DB  017h 
-DB  017h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h 
-DB  000h
+
+
+;
+; Секундомер
+;   кл. 0 - сброс
+;   кл. 1 - пуск/останов
+; 
+STWCH:
+    LXI D, 04DBH
+    RST 3
+    LXI D, 00FFH
+STWC1:
+    XRA A
+    STA 0BF6h
+    CALL DCD
+    MVI B, 1FH
+STWC2:
+    DCR B
+    DAD H
+    JNZ STWC2
+    MVI A, 0FBH
+    OUT 07H
+    IN 06H
+    CPI 0FEH
+    JZ STWCH
+    MVI A, 0F7H
+    OUT 07H
+    IN 06H
+    CPI 0FEH
+    JNZ STWC7
+    CMP E
+    JZ STWC3
+    MOV E, A
+    INR D
+STWC3:
+    MOV A, D
+    RAR
+    JNC STWC1
+    LXI H, 0BF0H
+STWC4:
+    INR M
+    MOV A, M
+    CPI 0AH
+    JNZ STWC6
+    MVI M, 00H
+STWC5:
+    INR L
+    JMP STWC4
+STWC6:
+    LXI H, 0BF3H
+    MOV A, M
+    CPI 06H
+    JNZ STWC1
+    MVI M, 00H  
+    INR L
+    JMP STWC5
+STWC7:
+    MVI E, 0FFH
+    JMP STWC3
+    NOP
+    NOP
+    NOP
+    NOP
+    DAD D
+    NOP
+
+; 
+; Умножение однобайтных чисел
+;   Вход:
+;       рег. E - множитель
+;       рег. D - множимое
+; 
+;   Выход:
+;       BC - результат
+; 
+MULTY:
+    LXI B, 0000H        ; Обнуление BC
+    MVI A, 01H          ; 
+    ANA A               ; Сброс флагов
+MULT1:
+    PUSH PSW            ; Сохранение флагов и аккумулятора
+    ANA E               
+    MOV A, B
+    JZ MULT2
+    ADD D
+MULT2:
+    RAR
+    MOV B, A
+    MOV A, C
+    RAR
+    MOV C, A
+    POP PSW
+    RAL
+    JNC MULT1   
+    RET
+    NOP
+    MVI D, 00H  
+
+; 
+; Орган
+; 
+ORGN:
+    CALL KRD
+    CALL ORGN3
+    ORA A
+    JZ ORGN
+    CALL ORGN1
+    CALL ORGN2
+    JMP ORGN
+ORGN1:
+    DCR A
+    NOP
+    NOP
+    JNZ ORGN1   
+    RET
+ORGN2:
+    MOV A,D
+    CMA
+    MOV D,A 
+    OUT 04H 
+    RET
+ORGN3:
+    MVI B,07H   
+    LXI H,0BEFH
+ORGN4:
+    MOV A,M
+    CMA 
+    ORA A
+    JZ ORGN6
+    CPI 04H
+    JNZ ORGN5
+    DCR A
+ORGN5:
+    MOV C,A
+    MOV A,B
+    RLC 
+    RLC
+    ORA C
+    LXI H,053AH
+    ADD L   
+    MOV L,A
+    MOV A,M
+    RET
+ORGN6:
+    DCR B
+    DCX H
+    MOV A,B
+    CPI 01H
+    JNZ ORGN4
+    XRA A
+    RET
+
+DB 0E6h, 000h, 000h, 000h 
+DB 0DAh, 0BDh, 0A3h, 000h 
+DB 08Fh, 085h, 072h, 000h 
+DB 064h, 05Ch, 04Dh, 000h 
+DB 043h, 038h, 033h, 000h 
+DB 02Dh, 024h, 020h,
+
+; 055AH
+M0:
+    LXI H, 058Dh
+    PUSH D 
+    LDAX D 
+    ANI 0F0H 
+    JZ M1
+    MVI L, 99H 
+M1:
+    LDAX D 
+    ANI 0FH 
+    JZ M2
+    CPI 0DH 
+    JC M3
+    MVI A, 0CH 
+M3:
+    SUI 01H 
+    ADD L 
+    MOV L, A 
+    MOV B, M 
+    CALL BEEP1
+M4:
+    POP D 
+    INX D 
+    LDAX D 
+    CMA 
+    ANA A 
+    RZ 
+    JMP M0
+M2:
+    LXI B, 0080H 
+    CALL DELB 
+    JMP M4
+
+    DB 0A1h, 098h, 08Fh, 087h 
+    DB 07Fh, 078h, 071h, 06Bh 
+    DB 064h, 05Fh, 059h, 054h 
+    DB 04Fh, 04Ah, 046h, 042h
+    DB 03Eh, 03Ah, 037h, 034h 
+    DB 031h, 02Eh, 02Bh, 028h 
+    
+MSTRT:
+    DB 006h, 000h, 006h, 000h 
+    DB 006h, 000h, 001h, 001h 
+    DB 001h, 001h, 0FFh
+
+; 
+; ♫♫♫ Мелодия. ♫♫♫
+; Крокодил Гена - "Пусть бегут неуклюже"
+; 
+MUS01:
+    LXI D, MGENA
+    CALL 055AH          ; ?
+    RST 1
+    JMP MUS01 
+
+; 
+; ♫♫♫ Мелодия 2. ♫♫♫
+; ???
+; 
+MUS02:
+    LXI D, MUNK
+    CALL 055AH          ; ?
+    RST 1
+    JMP MUS02 
+
+; 
+; ♫♫♫ Мелодия 2. ♫♫♫
+; ???
+; 
+MUNK:
+    DB 001h, 004h, 008h, 004h 
+    DB 006h, 006h, 004h, 003h
+    DB 008h, 008h, 006h, 006h
+    DB 001h, 001h, 001h, 000h 
+    DB 004h, 008h, 00Bh, 00Bh 
+    DB 011h, 011h, 00Bh, 009h 
+    DB 008h, 008h, 008h, 000h
+    DB 00Ah, 00Ah, 00Ch, 00Ch 
+    DB 013h, 011h, 008h, 008h
+    DB 000h, 003h, 003h, 001h 
+    DB 008h, 006h, 009h, 009h
+    DB 009h, 000h, 00Bh, 009h
+    DB 008h, 008h, 006h, 004h 
+    DB 008h, 008h, 006h, 006h 
+    DB 011h, 011h, 011h, 0FFh
+
+; 
+; ♫♫♫ Мелодия 1. ♫♫♫
+; Крокодил Гена - "Пусть бегут неуклюже"
+; 
+MGENA:
+    DB 000h, 01Ah, 01Bh, 01Ah 
+    DB 01Ah, 01Ah, 01Ah, 01Ah 
+    DB 000h, 00Ah, 00Bh, 00Ah 
+    DB 00Ah, 00Ah, 00Ah, 00Ah
+    DB 000h, 00Ah, 00Bh, 00Ah 
+    DB 00Ah, 003h, 005h, 006h 
+    DB 003h, 00Ah, 00Bh, 00Ah 
+    DB 00Ah, 005h, 006h, 008h
+    DB 005h, 00Ah, 00Bh, 00Ah 
+    DB 00Ah, 005h, 006h, 008h 
+    DB 008h, 00Ah, 00Bh, 00Ah 
+    DB 00Ah, 00Ah, 00Ah, 00Ah
+    DB 000h, 013h, 014h, 013h 
+    DB 013h, 00Ah, 00Bh, 011h 
+    DB 00Ah, 013h, 014h, 013h 
+    DB 013h, 008h, 00Ah, 00Bh
+    DB 013h, 011h, 00Bh, 013h 
+    DB 013h, 00Ah, 006h, 005h 
+    DB 005h, 008h, 006h, 003h 
+    DB 003h, 003h, 003h, 003h
+    DB 000h, 003h, 006h, 006h 
+    DB 006h, 005h, 005h, 000h 
+    DB 000h, 005h, 008h, 008h 
+    DB 008h, 006h, 006h, 000h
+    DB 000h, 006h, 00Ah, 00Ah 
+    DB 00Ah, 008h, 008h, 000h 
+    DB 000h, 00Bh, 00Ah, 011h 
+    DB 011h, 011h, 011h, 011h
+    DB 000h, 00Ah, 011h, 011h 
+    DB 011h, 00Bh, 00Bh, 000h 
+    DB 000h, 008h, 00Bh, 00Bh 
+    DB 00Bh, 00Ah, 00Ah, 000h
+    DB 000h, 006h, 00Ah, 008h 
+    DB 008h, 000h, 000h, 00Ah 
+    DB 00Ah, 00Ah, 00Ah, 003h 
+    DB 003h, 000h, 003h, 005h
+    DB 006h, 00Ah, 011h, 00Bh 
+    DB 00Ah, 00Bh, 00Ah, 008h
+    DB 006h, 005h, 003h, 003h
+    DB 000h, 013h, 013h, 0FFh
+
+; 
+; Стартовая мелодия
+; 
+LMC:
+    LXI D, MSTRT
+    CALL  055Ah
+    RET
+    NOP
+
+
+; 
+; ???????
+; 06A8
+; 
+MM0:
+    PUSH PSW 
+    PUSH D 
+    PUSH B 
+MM1:
+    PUSH D 
+    RST 3 
+    POP D 
+    MVI B, 04H 
+    LXI H, 0BF5H 
+MM2:
+    CALL KIND 
+    CPI  81h
+    JZ  MM1
+    CPI  10h
+    JNC  MM2
+    MOV M, A 
+    DCR B 
+    DCX H 
+    JNZ  MM2
+MM3:
+    CALL  KIND
+    CPI  81h
+    JZ  MM1
+    CPI  83h
+    JNZ  MM3
+    LXI H, 0BF4h
+    CALL  FETA6
+    MOV D, A 
+    LXI H, 0BF2h
+    CALL  FETA6
+    MOV E, A 
+    PUSH D
+    RST 2
+    POP H
+    POP B
+    POP D
+    POP PSW
+    RET 
+
+; 
+; ????
+; 
+INR D 
+NOP 
+RAL 
+RAL 
+RAL 
+RAL 
+
+; ????
+MMM0:
+    PUSH D 
+    XCHG 
+    LHLD  0B02h
+    CALL  MMM1
+    XCHG 
+    POP D
+    INX H 
+    RET 
+MMM1:
+    MOV A, H 
+    CMP D 
+    RNZ 
+    MOV A, L 
+    CMP E 
+    RET 
+
+MMMM0:
+    PUSH B 
+    MVI C, 08H 
+MMMM2:
+    RLC 
+    CMA 
+    OUT 04H 
+    CALL MMMM1 
+    CMA 
+    OUT 04H 
+    CALL MMMM1 
+    DCR C 
+    JNZ MMMM2 
+    POP B 
+    RET 
+MMMM1:
+    MVI B, 30H 
+MMMM3:
+    DCR B 
+    JNZ MMMM3
+    RET 
+MMMM11:
+    MVI C, 01H 
+MMMM5:   
+    IN 04H 
+    MOV B, A 
+MMMM4:    
+    IN 04H 
+    CMP B 
+    JZ MMMM4 
+    MVI B, 48H 
+    CALL MMMM3 
+    RRC 
+    MOV A, C 
+    RAL 
+    MOV C, A 
+    JNC MMMM5 
+    LDA 0B06H 
+    XRA C 
+    RET 
+MMMM13:
+    XRA A
+    STA 0B06H 
+MMMM6:    
+    ORI 80H 
+    MOV C, A 
+    CALL MMMM5 
+    CPI 0E6H
+    RZ 
+    CPI 19H 
+    JNZ MMMM6 
+    MVI A, 0FFH 
+    STA 0B06H 
+    RET 
+MMMM9:
+    MOV A, E 
+    CALL MMMM0 
+
+    RST 1 
+    LXI D, 06E8h
+    CALL  MM0
+    SHLD  0B00h
+    CALL  MM0
+    SHLD  0B02h
+    LXI D, 07DCh
+    CALL  MM0
+    SHLD  0B04h
+    XRA A 
+    MOV B, A 
+MMMM7:  
+    CALL  MMMM0
+    DCR B 
+    JNZ  MMMM7
+    LXI H, 0AFFh
+    MVI D, 08h
+    MOV E, A 
+    MVI A, 0E6h
+MMMM10:    
+    DCR D 
+    JNZ  MMMM8
+    LHLD  0B00h
+    DCX H   
+    MOV A, E 
+MMMM8:
+    CALL  MMMM0
+    ADD E 
+    MOV E, A 
+    CALL  MMM0
+    JZ  MMMM9
+    MOV A, M 
+    DCR D 
+    INR D 
+    JZ  MMMM8
+    JMP  MMMM10
+MMMM16:  
+    CALL  MMMM11
+    CMP E 
+    LHLD  0B04h
+    JZ  MMMM12
+    RST 1 
+    OUT  10h
+    CALL  MMMM13
+    LXI H, 0B00h
+    LXI D, 07E6h
+MMMM17:   
+    CALL  MMMM11
+    DCR D 
+    JNZ  MMMM14
+    CMP E 
+
+    CNZ  RS7
+    LHLD  0B00h
+    DCX H 
+    JMP  MMMM15
+MMMM14:
+    MOV M, A 
+MMMM15:
+    ADD E 
+    MOV E, A 
+    CALL  MMM0
+    JZ  MMMM16
+    INR D 
+    JM  MMMM17
+    DCR D 
+    JMP  MMMM17
+    NOP 
+    NOP 
+    NOP 
+MMMM12:
+    OUT  0Eh
+    NOP 
+    PCHL 
+    DCR C 
+    LDAX B 
+    RAL 
+    RAL 
+    RAL 
+    RAL 
